@@ -36,7 +36,7 @@ public class BallMovement : MonoBehaviour {
 				dir.Scale(new Vector3(0f, 0, 0f));
 				break;
 			case "Player": 
-				dir.Scale(new Vector3(-1f, 1, Random.Range(-1, 1)));
+				dir.Scale(new Vector3(-1, 1, Random.Range(-2, 2)));
 				break;
 			case "Plane": 
 				break; 
