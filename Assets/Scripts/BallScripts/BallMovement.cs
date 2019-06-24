@@ -25,27 +25,21 @@ public class BallMovement : MonoBehaviour {
 		switch(collisiion.gameObject.name){ 
 			case "left": 
 				dir.Scale(new Vector3(1, 1, -1f));
-                gameObject.name = "Sphere";
                 break; 
 			case "right": 
 				dir.Scale(new Vector3(1, 1, -1f));
-                gameObject.name = "Sphere";
                 break;  
 			case "up": 
 				dir.Scale(new Vector3(-1f, 1, 1f));
-                gameObject.name = "Sphere";
                 break; 
 			case "down": 
 				dir.Scale(new Vector3(0f, 0, 0f));
-                gameObject.name = "Sphere";
                 break;
 			case "Player": 
-				dir.Scale(new Vector3(-1, 1, Random.Range(0,3) * Random.Range(0, 2) * 2 - 1));
-                gameObject.name = "Sphere";
+				dir.Scale(new Vector3(-1, 1,  Random.Range(0, 2) * 2 - 1));
                 break;
             case "Brick(Clone)":
-                dir.Scale(new Vector3(-1, 1, Random.Range(0, 3) * Random.Range(0, 2)*2 - 1 ));
-                gameObject.name = "SphereHit";
+                dir.Scale(new Vector3(-1, 1, Random.Range(0, 2)*2 - 1 ));
                 break;
             case "Plane": 
 				break; 
