@@ -40,11 +40,11 @@ public class BallMovement : MonoBehaviour {
                 gameObject.name = "Sphere";
                 break;
 			case "Player": 
-				dir.Scale(new Vector3(-1, 1, Random.Range(-2, 2)));
+				dir.Scale(new Vector3(-1, 1, Random.Range(0,3) * Random.Range(0, 2) * 2 - 1));
                 gameObject.name = "Sphere";
                 break;
             case "Brick(Clone)":
-                dir.Scale(new Vector3(-1f, 1, 1f));
+                dir.Scale(new Vector3(-1, 1, Random.Range(0, 3) * Random.Range(0, 2)*2 - 1 ));
                 gameObject.name = "SphereHit";
                 break;
             case "Plane": 
