@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI; 
 
 public class BallMovement : MonoBehaviour {
 
 	// Use this for initialization
 	public float ballSpeed;
+	public Text score; 
+
+	private int gameScore = 0; 
 	private Rigidbody ball;
 	private Vector3 dir;  
 	 
@@ -39,7 +42,11 @@ public class BallMovement : MonoBehaviour {
 				dir.Scale(new Vector3(-1, 1,  Random.Range(0, 2) * 2 - 1));
                 break;
             case "Brick(Clone)":
+				gameObject.name = "SphereHit";
                 dir.Scale(new Vector3(-1, 1, Random.Range(0, 2)*2 - 1 ));
+				gameObject.name = "Sphere";
+				gameScore += 10;
+				score.text = "Score: " + gameScore;
                 break;
             case "Plane": 
 				break; 
