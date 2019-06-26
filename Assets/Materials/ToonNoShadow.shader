@@ -40,7 +40,6 @@
 				float2 uv : TEXCOORD0;
 				float3 worldNormal : NORMAL;
 				float3 viewDir : TEXCOORD1;
-				SHADOW_COORDS(2)
 			};
 
 			sampler2D _MainTex;
@@ -53,7 +52,6 @@
 				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 				o.worldNormal = UnityObjectToWorldNormal(v.normal);
 				o.viewDir = WorldSpaceViewDir(v.vertex);
-				TRANSFER_SHADOW(o)
 				return o;
 			}
 			
@@ -79,11 +77,10 @@
 			float4 frag (v2f i) : SV_Target
 			{
 				//Shadows and normal calculations 
-				float shadow = SHADOW_ATTENUATION(i);
 				float4 sample = tex2D(_MainTex, i.uv);
 				float3 normal= normalize(i.worldNormal); 
 				float NdotL = dot(_WorldSpaceLightPos0, normal); 
-				float lightIntensity = interpolate(NdotL * shadow);
+				float lightIntensity = interpolate(NdotL);
 				float4 light = lightIntensity * _LightColor0;
 
 				//Specular Light calculations
@@ -99,9 +96,11 @@
 
 				//Rim of the the object 
 				float4 rimDot = 1 - dot(viewDir, normal);
-				float rimIntensity = smoothstep(_RimAmount - 0.01, _RimAmount + 0.01, rimDot);
+				float rimIntensity = smoothstep(_RimAmount - 0.05, _RimAmount + 0.05, rimDot);
 				float4 rim = rimIntensity * _RimColor;
-
+				if (rimIntensity == 1) { 
+					return _Color * sample * rim; 
+				}
 
 				return _Color * sample *  (_AmbientColor + lightIntensity + specular + rim);
 			}
