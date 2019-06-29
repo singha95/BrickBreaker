@@ -11,8 +11,8 @@ public class BallMovement : MonoBehaviour
     public Text score;
     public GameObject ballPrefab;
 	public Text gameOver; 
-
     public static int LIVES = 3;
+    
     private int gameScore = 0;
     private Rigidbody ball;
     private Vector3 dir;
@@ -50,9 +50,18 @@ public class BallMovement : MonoBehaviour
 
     }
 
-    void OnCollisionEnter(Collision collisiion)
+    void HitBrick(GameObject brick){ 
+        gameObject.name = "SphereHit";
+        dir.Scale(new Vector3(-1, 1, Random.Range(0, 2) * 2 - 1));
+        Destroy(brick);
+        gameObject.name = "Sphere";
+        gameScore += 10;
+        score.text = "Score: " + gameScore;
+    }
+
+    void OnCollisionEnter(Collision collision)
     {
-        switch (collisiion.gameObject.name)
+        switch (collision.gameObject.name)
         {
             case "left":
                 dir.Scale(new Vector3(1, 1, -1f));
@@ -70,11 +79,7 @@ public class BallMovement : MonoBehaviour
                 dir.Scale(new Vector3(-1, 1, ballSpeed * 0.25f));
                 break;
             case "Brick(Clone)":
-                gameObject.name = "SphereHit";
-                dir.Scale(new Vector3(-1, 1, Random.Range(0, 2) * 2 - 1));
-                gameObject.name = "Sphere";
-                gameScore += 10;
-                score.text = "Score: " + gameScore;
+                HitBrick(collision.gameObject);
                 break;
             case "Plane":
                 break;
