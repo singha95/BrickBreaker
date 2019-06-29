@@ -1,15 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
 	public static GameManager instance = null; 
+	public Text levelUI; 
 	public SpawnBricks brickSpawner; 
 	public string level = "lvl1";
 	public Vector3 start; 
 
 	void Awake() { 
+		levelUI.text += level;
 		brickSpawner = GetComponent<SpawnBricks>();
 		if (instance == null){ 
 			instance = this; 
